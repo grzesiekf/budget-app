@@ -10,9 +10,13 @@ public class Account {
     private double budget;
     private double savings;
 
-
     private List<OutgoList> userOutgoesLists = new ArrayList<>();
 
+     public Account(String username, String password)
+     {
+         this.username=username;
+         this.password=password;
+     }
 
     //TODO lista wydatków bieżący miesiąc
     //TODO planowane wydatki
