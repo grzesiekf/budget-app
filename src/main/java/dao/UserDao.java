@@ -22,8 +22,4 @@ public class UserDao extends AbstractDao<User> {
         super(User.class);
     }
 
-    @Override
-    public User newInstance() {
-        return super.newInstance(new User());
-    }
 }

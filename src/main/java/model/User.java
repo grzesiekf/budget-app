@@ -1,13 +1,10 @@
 package model;
 
-import dao.NoteDao;
-import dao.UserDao;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "Users")
 @Table(name = "USERS")
 public class User {
 
@@ -16,9 +13,14 @@ public class User {
     private int id;
 
     private String name;
+    private String password;
 
-    @OneToMany
-    private List<Note> notes = new ArrayList<>();
+    @OneToMany(
+            mappedBy = "owner",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Outgo> outgos = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -28,25 +30,28 @@ public class User {
         return name;
     }
 
+    public String getPassword() {return password;}
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public List<Note> getNotes() {
-        return new ArrayList<>(notes);
+    public void setPassword(String password) { this.password = password;}
+
+    public List<Outgo> getOutgos() {
+        return new ArrayList<>(outgos);
     }
 
-    public void addNote(Note note) {
-        this.notes.add(note);
-        note.setOwner(this);
+    public void addNote(Outgo outgo) {
+        this.outgos.add(outgo);
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", notes=" + notes +
+                ", name=" + name + ", password="+ password +'\'' +
+            //   ", outgos=" + outgos +
                 '}';
     }
 }

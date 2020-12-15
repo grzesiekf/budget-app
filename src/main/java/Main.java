@@ -1,58 +1,53 @@
-import finanses.OutgoList;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import dao.UserDao;
+import db.MySessionFactory;
+import dao.OutgoDao;
+import model.Outgo;
+import model.User;
+import java.time.LocalDate;
 
 
 
 public class Main {
 
-  private static EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("splitwise");
-    public static void main(String[] args) {
+    OutgoDao outgoDao = OutgoDao.getInstance();
+    UserDao userDao = UserDao.getInstance();
 
+    public void run1() {
+        User user = new User();
+        Outgo outgo1 = new Outgo();
 
-       /* OutgoList moja = new OutgoList("moja lista");
+        user.setName("Grzechu");
+        user.setPassword("aaaa");
 
+        userDao.persist(user);
 
-        moja.addOutgo("obiad", LocalDate.now(),15.99);
-        moja.addOutgo("zakupy",LocalDate.now(), 41.00);
-        moja.addOutgo("czekolada",LocalDate.now(), 5.50);
+        outgo1.setOwner(user);
+        outgo1.setName("pizza");
+        outgo1.setValue(10.99);
+        outgo1.setDate(LocalDate.now());
 
-        moja.printOutgoList();
+        outgoDao.persist(outgo1);
 
-        System.out.println("suma wydatków: "+ moja.outgosSum());
-
-        */
-
-       ENTITY_MANAGER_FACTORY.close();
+        printOutgos();
+    }
+    public void run()
+    {
+        System.out.println("User:");
+        userDao.getAll().forEach(System.out::println);
+        System.out.println();
     }
 
-   public static void addUser(int id, String username, String password)
-   {
-       EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
-       EntityTransaction et = null;
-       try{
-           et=em.getTransaction();
-           et.begin();
-           User user = new User();
-           user.setUsername(username);
-           user.setPassword(password);
-           em.persist(user);
-           et.commit();
-       }
-       catch (Exception ex)
-       {
-           if(et != null)
-           {
-               et.rollback();
-           }
-           ex.printStackTrace();
-       }
-       finally {
-           em.close();
-       }
-   }
+    public void printOutgos() {
+        System.out.println("Outgos:");
+        outgoDao.getAll().forEach(System.out::println);
+        System.out.println();
+    }
 
+
+    public static void main(String[] args) {
+        MySessionFactory.init();
+        Main main = new Main();
+        main.run();
+
+    }
 }

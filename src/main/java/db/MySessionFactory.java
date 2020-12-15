@@ -1,6 +1,6 @@
 package db;
 
-import model.Note;
+import model.Outgo;
 import model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -13,7 +13,7 @@ public class MySessionFactory {
         if(sessionFactory != null) return;
         try {
             Configuration configuration = new Configuration();
-            configuration.addAnnotatedClass(Note.class);
+            configuration.addAnnotatedClass(Outgo.class);
             configuration.addAnnotatedClass(User.class);
             sessionFactory = configuration.configure().buildSessionFactory();
         } catch (Throwable ex) {

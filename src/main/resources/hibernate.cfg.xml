@@ -12,6 +12,6 @@
         <property name="hibernate.connection.url">jdbc:derby:derbyDB;create=true</property>
 
         <property name="hibernate.dialect">org.hibernate.dialect.DerbyTenSevenDialect</property>
-        <property name="hibernate.hbm2ddl.auto">create-drop</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
     </session-factory>
 </hibernate-configuration>

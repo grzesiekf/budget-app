@@ -32,4 +32,37 @@ public class OutgoList {
     public void addOutgo(String outgoName, LocalDate date, double outgoValue) {
         outgoes.add(new Outgo(outgoName,date, outgoValue));
     }
+
+    public static class Outgo {
+
+         private String name;
+         private LocalDate date;
+         private double value;
+
+         public Outgo(String name,LocalDate date, double value)
+         {
+             this.name = name;
+             this.date = date;
+             this.value = value;
+         }
+
+        public String getName() {
+            return name;
+        }
+
+        public double getValue() {
+            return value;
+        }
+
+        public LocalDate getDate() {
+            return date;
+        }
+
+        @Override
+        public String toString() {
+            return name + " " + date + " " + value;
+        }
+
+
+    }
 }

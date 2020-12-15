@@ -16,14 +16,11 @@ abstract public class AbstractDao<T> {
         this.type = type;
     }
 
-    public abstract T newInstance();
-
-    protected T newInstance(T object) {
+    public void persist(T object) {
         try (Session session = MySessionFactory.getSessionFactory().openSession()) {
             Transaction tx = session.beginTransaction();
-            session.save(object);
+            session.persist(object);
             tx.commit();
-            return object;
         }
     }
 
