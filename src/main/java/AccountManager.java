@@ -6,13 +6,13 @@ public class AccountManager {
 
     private final UserDao userDao = UserDao.getInstance();
 
-    public boolean login(String name, String password) {
+    public User login(String name, String password) {
         User user = userDao.getByName(name);
 
-        if (password.equals(user.getPassword())) {
-            return true;
+        if (user != null && password.equals(user.getPassword())) {
+            return user;
         } else {
-            return false;
+            return null;
         }
 
     }

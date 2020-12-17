@@ -46,7 +46,7 @@ public class User {
         return new ArrayList<>(outgos);
     }
 
-    public void addNote(Outgo outgo) {
+    public void addOutgo(Outgo outgo) {
         this.outgos.add(outgo);
     }
 
