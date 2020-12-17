@@ -1,10 +1,9 @@
+import dao.OutgoDao;
 import dao.UserDao;
 import db.MySessionFactory;
-import dao.OutgoDao;
-import model.Outgo;
 import model.User;
-import java.time.LocalDate;
 
+import java.util.Scanner;
 
 
 public class Main {
@@ -12,33 +11,42 @@ public class Main {
     OutgoDao outgoDao = OutgoDao.getInstance();
     UserDao userDao = UserDao.getInstance();
 
-    public void run1() {
-        User user = new User();
-        Outgo outgo1 = new Outgo();
+    public void updateUser(int id) {
 
-        user.setName("Grzechu");
-        user.setPassword("aaaa");
-
-        userDao.persist(user);
-
-        outgo1.setOwner(user);
-        outgo1.setName("pizza");
-        outgo1.setValue(10.99);
-        outgo1.setDate(LocalDate.now());
-
-        outgoDao.persist(outgo1);
-
-        printOutgos();
-    }
-    public void run()
-    {
-        System.out.println("User:");
+        User user = userDao.get(id);
+        user.setPassword("cccc");
+        userDao.update(user);
         userDao.getAll().forEach(System.out::println);
-        System.out.println();
     }
 
-    public void printOutgos() {
-        System.out.println("Outgos:");
+    public void authorization() {
+        AccountManager accountManager = new AccountManager();
+        Scanner scanner = new Scanner(System.in);
+        char again = 'y';
+        while (again == 'y') {
+            System.out.println("login: ");
+            String name = scanner.nextLine();
+            System.out.println("password: ");
+            String password = scanner.nextLine();
+            if (accountManager.login(name, password)) {
+                System.out.println("logged in");
+                return;
+            } else {
+                System.out.println("wrong username or password, try again");
+                System.out.println("try again? y/n");
+                again = scanner.next().charAt(0);
+            }
+        }
+
+    }
+
+    public void run() {
+        authorization();
+
+    }
+
+    public void printOutgoes() {
+        System.out.println("Outgoes:");
         outgoDao.getAll().forEach(System.out::println);
         System.out.println();
     }
@@ -47,6 +55,7 @@ public class Main {
     public static void main(String[] args) {
         MySessionFactory.init();
         Main main = new Main();
+
         main.run();
 
     }

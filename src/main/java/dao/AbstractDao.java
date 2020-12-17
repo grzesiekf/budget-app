@@ -4,6 +4,7 @@ import db.MySessionFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
@@ -35,6 +36,8 @@ abstract public class AbstractDao<T> {
     public T get(int id) {
         try (Session session = MySessionFactory.getSessionFactory().openSession()) {
             return session.get(type, id);
+        } catch (NoResultException e) {
+            return null;
         }
     }
 
@@ -44,6 +47,8 @@ abstract public class AbstractDao<T> {
             CriteriaQuery<T> criteria = builder.createQuery(type);
             criteria.from(type);
             return session.createQuery(criteria).getResultList();
+        } catch (NoResultException e) {
+            return null;
         }
     }
 }

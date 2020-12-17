@@ -58,7 +58,7 @@ public class Outgo {
     public String toString() {
         return "Outgo{" +
                 "id=" + id +
-                ", name= + " + name +
+                ", name= " + name +
                 ", date= " + date +
                 ", value='" + value +
                 ", owner=" + owner.getName() +

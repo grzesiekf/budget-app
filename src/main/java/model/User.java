@@ -30,13 +30,17 @@ public class User {
         return name;
     }
 
-    public String getPassword() {return password;}
+    public String getPassword() {
+        return password;
+    }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setPassword(String password) { this.password = password;}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public List<Outgo> getOutgos() {
         return new ArrayList<>(outgos);
@@ -50,8 +54,8 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name=" + name + ", password="+ password +'\'' +
-            //   ", outgos=" + outgos +
+                ", name=" + name + ", password=" + password + '\'' +
+                //   ", outgos=" + outgos +
                 '}';
     }
 }
